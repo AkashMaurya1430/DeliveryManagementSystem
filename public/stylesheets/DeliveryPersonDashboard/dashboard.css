@@ -1,0 +1,52 @@
+body {
+  background-color: rgb(240, 240, 240);
+}
+
+.navbar {
+  background-color: #6c34d442;
+  box-shadow: 0px 3px 25px -7px grey;
+}
+
+.navbar .ms-auto a {
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.logoutBtn {
+  border: 1px solid var(--purple);
+  border-radius: 5px;
+  padding: 0.3rem 1.5rem;
+}
+
+.logoutBtn:hover {
+  background-color: var(--purple);
+  color: #fff;
+}
+
+.title {
+  font-weight: 600;
+  color: rgb(116, 116, 116);
+}
+
+.table th {
+  color: var(--purple);
+  background-color: transparent;
+}
+
+.table tbody tr {
+  transition: 0.2s;
+}
+.table tbody tr:hover {
+  background-color: #fff !important;
+}
+
+.statusCheckbox {
+  font-size: 1.1rem;
+}
+
+.statusCheckbox:focus {
+  box-shadow: 0 0 0 0.25rem #00800080 !important;
+}
+.statusCheckbox:checked {
+  background-color: green !important;
+}

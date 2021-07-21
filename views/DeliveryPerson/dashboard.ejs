@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../imports') -%>
+    <title>DMS | Dashboard</title>
+    <link rel="stylesheet" href="stylesheets/DeliveryPersonDashboard/dashboard.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">DMS</a>
+        <a href="/login" class="btn ms-auto logoutBtn">Logout</a>
+      </div>
+    </nav>
+    <div class="container pt-5">
+      <h3 class="title mt-3 mt-sm-5 mb-4">My Deliveries</h3>
+      <table class="table text-center">
+        <thead>
+          <th>#</th>
+          <th>Order Name</th>
+          <th class="d-flex align-items-center justify-content-center">
+            Status
+            <i class="bx bx-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Checked, if delivered"></i>
+          </th>
+        </thead>
+        <tbody>
+          <% let i=1;orders.forEach((order)=>{%>
+          <tr>
+            <th><%= i++ %></th>
+            <td><%= order.name %></td>
+
+            <td>
+              <% if(order.status){ %>
+              <input class="form-check-input statusCheckbox cursor-pointer" type="checkbox" name="<%= i %>" checked />
+              <% }else{ %>
+              <input class="form-check-input statusCheckbox cursor-pointer" type="checkbox" name="<%= i %>" />
+              <% } %>
+            </td>
+          </tr>
+          <% })%>
+        </tbody>
+      </table>
+    </div>
+  </body>
+
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  </script>
+</html>

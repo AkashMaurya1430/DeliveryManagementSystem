@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../imports.ejs') -%>
+    <title>DMS | Users</title>
+    <link rel="stylesheet" href="/stylesheets/Admin/dashboard.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">DMS</a>
+        <div class="ms-auto d-flex align-items-center">
+          <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#addNewUser">Add New User</a>
+          <a href="/dashboard" class="text-dark mx-4">Orders</a>
+          <a href="/login" class="btn ms-auto logoutBtn">Logout</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container pt-5">
+      <h3 class="title mt-3 mt-sm-5 mb-4">All Users</h3>
+      <table class="table text-center">
+        <thead>
+          <th>#</th>
+          <!-- <th>Name</th> -->
+          <th>Email</th>
+          <th class="d-flex align-items-center justify-content-center">User Type</th>
+          <th>Delete User</th>
+        </thead>
+        <tbody>
+          <% let i=1;users.forEach((user)=>{%>
+          <tr>
+            <th><%= i++%></th>
+            <td><%= user.email %></td>
+
+            <td><%= user.userType %></td>
+            <td><i class="bx bxs-trash-alt text-danger cursor-pointer" onclick="deleteUser(`<%=user._id%>`)"></i></td>
+          </tr>
+          <% })%>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Add New User Modal -->
+    <div class="modal fade" id="addNewUser" tabindex="-1" aria-labelledby="addNewUserLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/addUser" method="POST" class="needs-validation">
+              <div class="mb-2">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" required />
+              </div>
+              <div class="mb-2">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" required />
+              </div>
+              <div class="mb-3">
+                <label for="userType" class="form-label">Select User Type</label>
+                <select name="userType" id="userType" class="form-control" required>
+                  <option value="Select User" disabled selected>Select User</option>
+                  <option value="Manager">Manager</option>
+                  <option value="Delivery Person">Delivery Person</option>
+                </select>
+              </div>
+              <div class="text-end">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add User</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    function deleteUser(id) {
+      axios
+        .post("/dashboard/deleteuser", {
+          id: id,
+        })
+        .then(function (response) {
+          if (response.status == 200) {
+            location.reload();
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  </script>
+</html>

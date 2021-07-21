@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../imports') -%>
+    <title>DMS | Login</title>
+    <link rel="stylesheet" href="stylesheets/auth/login.css" />
+  </head>
+  <body>
+    <div class="container-lg d-flex align-items-center" style="min-height: 100vh">
+      <div class="row mx-0 align-items-center">
+        <div class="col-12 col-md-6 col-lg-5">
+          <div class="card py-3 px-4">
+            <h2 class="title">Login</h2>
+            <!-- <h6 class="text-muted">Doesn't have an account yet? <a href="/signup">Sign Up</a></h6> -->
+
+            <form action="/login" method="POST" class="row no-gutters mt-3 needs-validation">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Don't worry its a secret" required />
+              </div>
+              <div class="text-center">
+                <button class="btn loginBtn" type="submit">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-7 imageSection d-none d-md-flex align-items-center justify-content-center">
+          <img src="images/login.svg" alt="" class="img-fluid" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
