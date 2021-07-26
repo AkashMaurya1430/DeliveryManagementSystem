@@ -40,7 +40,7 @@
 
             <td class="d-flex align-items-center justify-content-center">
               <%= order.assignedTo.email %>
-              <i class="bx bxs-pencil ms-1 text-warning cursor-pointer" data-bs-toggle="modal" data-bs-target="#assignModal"></i>
+              <i class="bx bxs-pencil ms-1 text-warning cursor-pointer" onclick="setOrderId(`<%=order._id%>`)" data-bs-toggle="modal" data-bs-target="#assignModal"></i>
             </td>
 
             <td>
@@ -69,19 +69,20 @@
           </div>
           <div class="modal-body">
             <label for="deliveryGuy" class="form-label">Choose your Delivery Guy from the list:</label>
-            <input class="form-control" list="deliveryGuys" name="deliveryGuy" id="deliveryGuy" />
+            <input class="form-control" list="deliveryGuys" name="deliveryGuy" id="deliveryGuyEmail" />
             <datalist id="deliveryGuys">
-              <option value="Edge"></option>
-              <option value="Firefox"></option>
-              <option value="Chrome"></option>
-              <option value="Opera"></option>
-              <option value="Safari"></option>
+              <% deliveryGuy.forEach((deliveryGuy)=>{ %>
+              <option value="<%=deliveryGuy.email%>"><%=deliveryGuy.email%></option>
+              
+              <% }) %>
             </datalist>
+
+            <div class="text-end mt-4">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="assignOrder()">Assign Order</button>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -122,6 +123,12 @@
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
+    let selectedOrder
+
+  function setOrderId(id) {
+     selectedOrder = id
+  }
+
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl);
@@ -141,5 +148,28 @@
           console.log(error);
         });
     }
-  </script>
+  
+    function assignOrder(){
+
+      let deliveryGuyEmail = document.getElementById('deliveryGuyEmail').value;
+      let body={
+        orderId: selectedOrder,
+        assignedTo: deliveryGuyEmail
+      }
+      axios
+        .post("/dashboard/assignorder",   
+          body
+        )
+        .then(function (response) {
+          if (response.status == 200) {
+            location.reload();
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+    }
+
+     </script>
 </html>

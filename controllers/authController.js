@@ -13,9 +13,9 @@ module.exports.login = async (req, res) => {
       res.status(201).send("User does not exist!");
     } else {
       if (bcrypt.compareSync(req.body.password, user.password)) {
+        req.session = user;
         if (user.userType === "Admin") {
           User.find({ userType: "Delivery Person" }, function (err, response) {
-            // console.log("Response", response);
             Order.find({})
               .populate({
                 path: "assignedTo",
@@ -36,6 +36,7 @@ module.exports.login = async (req, res) => {
             Order.find({})
               .populate("assignedTo")
               .then((orders) => {
+                console.log(orders)
                 res.render("Manager/dashboard", {
                   deliveryGuy: response,
                   orders: orders,

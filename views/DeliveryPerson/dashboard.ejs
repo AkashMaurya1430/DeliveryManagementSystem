@@ -33,10 +33,10 @@
             <td><%= order.name %></td>
 
             <td>
-              <% if(order.status){ %>
-              <input class="form-check-input statusCheckbox cursor-pointer" type="checkbox" name="<%= i %>" checked />
-              <% }else{ %>
-              <input class="form-check-input statusCheckbox cursor-pointer" type="checkbox" name="<%= i %>" />
+              <% if(order.staus){ %>
+                <input class="form-check-input statusCheckbox cursor-pointer" type="checkbox" name="<%= i %>" checked onclick="statusUnDelevered(`<%=order._id%>`)"/>
+                <% } else{ %>
+                  <input class="form-check-input statusCheckbox cursor-pointer" type="checkbox" name="<%= i %>" onclick="statusDelevered(`<%=order._id%>`)" />
               <% } %>
             </td>
           </tr>
@@ -45,11 +45,52 @@
       </table>
     </div>
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
-  </script>
+
+
+function statusDelevered(id){
+  let body = {
+    orderId:id,
+    status:true
+  }
+  axios
+  .post("/dashboard/orderStatus",   
+    body
+  )
+  .then(function (response) {
+    if (response.status == 200) {
+      location.reload();
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+function statusUnDelevered(id){
+  let body = {
+    orderId:id,
+    status:false
+  }
+  axios
+  .post("/dashboard/orderStatus",   
+    body
+  )
+  .then(function (response) {
+    if (response.status == 200) {
+      location.reload();
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+</script>
+
 </html>

@@ -12,4 +12,8 @@ router.post("/deleteorder", dashboardController.deleteorder);
 
 router.post("/deleteuser", dashboardController.deleteuser);
 
+router.post('/assignorder',dashboardController.assignOrder)
+
+router.post('/orderStatus',dashboardController.setOrderStatus)
+
 module.exports = router;
