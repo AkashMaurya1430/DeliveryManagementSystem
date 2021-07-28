@@ -1,5 +1,5 @@
 put the following line in .env file
-DB_URI=mongodb+srv://Akash:Akash@cluster0.xutoq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+DB_URI=
 
 <!-- -------- ----------- -->
 
